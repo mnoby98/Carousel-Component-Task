@@ -30,11 +30,11 @@ const Carousel = ({ images }: images) => {
     setCurrentImage(index);
   };
 
-  const dragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    setStartDrag(e.clientX);
+  const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setStartDrag(e.touches[0].clientX);
   };
-  const dragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    setEndDrag(e.clientX);
+  const dragEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    setEndDrag(e.changedTouches[0].clientX);
   };
 
   useEffect(() => {
