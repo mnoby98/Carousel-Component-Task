@@ -5,20 +5,20 @@ interface ImageType {
   imageId: number;
   image: StaticImageData;
   currentImage: number;
-  dragEnd: (e: React.TouchEvent<HTMLDivElement>) => void;
-  dragStart: (e: React.TouchEvent<HTMLDivElement>) => void;
+  touchEnd: (e: React.TouchEvent<HTMLDivElement>) => void;
+  touchStart: (e: React.TouchEvent<HTMLDivElement>) => void;
 }
 const Slider = ({
   currentImage,
   imageId,
   image,
-  dragEnd,
-  dragStart,
+  touchEnd,
+  touchStart,
 }: ImageType) => {
   return (
     <div
-      onTouchStart={dragStart}
-      onTouchEnd={dragEnd}
+      onTouchStart={touchStart}
+      onTouchEnd={touchEnd}
       className={`     active:cursor-grabbing cursor-grab      w-full h-full absolute transition-transform ease-in-out duration-1000 ${
         imageId === currentImage
           ? "translate-x-0 z-0"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CarouselButton from "@/components/CarouselButton";
 import Slider from "./Slider";
 import { StaticImageData } from "next/image";
@@ -10,47 +10,47 @@ interface images {
 const Carousel = ({ images }: images) => {
   // Current Image
   const [currentImage, setCurrentImage] = useState(0);
-  const [startDrag, setStartDrag] = useState(0);
-  const [endDrag, setEndDrag] = useState(0);
+  const [startTouch, setStartTouch] = useState(0);
+  const [endTouch, setEndTouch] = useState(0);
 
   // Select next image
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (currentImage >= images.length - 1) return;
     setCurrentImage((currentImage) => currentImage + 1);
-  };
+  }, [currentImage, images.length]);
 
   // Select previse Image
-  const previousSlide = () => {
+  const previousSlide = useCallback(() => {
     if (currentImage <= 0) return;
     setCurrentImage((currentImage) => currentImage - 1);
-  };
+  }, [currentImage]);
 
   // Select with bullets
   const selectImage = (index: number) => {
     setCurrentImage(index);
   };
 
-  const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setStartDrag(e.touches[0].clientX);
+  const touchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setStartTouch(e.touches[0].clientX);
   };
-  const dragEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    setEndDrag(e.changedTouches[0].clientX);
+  const touchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    setEndTouch(e.changedTouches[0].clientX);
   };
 
   useEffect(() => {
-    if (startDrag && endDrag) {
-      if (startDrag > endDrag) {
+    if (startTouch && endTouch) {
+      if (startTouch > endTouch) {
         // Swiped left
         nextSlide();
-      } else if (startDrag < endDrag) {
+      } else if (startTouch < endTouch) {
         // Swiped right
         previousSlide();
       }
       // Reset drag states
-      setStartDrag(0);
-      setEndDrag(0);
+      setStartTouch(0);
+      setEndTouch(0);
     }
-  }, [startDrag, endDrag]);
+  }, [startTouch, endTouch, nextSlide, previousSlide]);
 
   return (
     <div className="  select-all flex items-center h-full px-2 lg:px-0  gap-2 sm:gap-10 ">
@@ -60,8 +60,8 @@ const Carousel = ({ images }: images) => {
       <div className=" relative overflow-hidden    w-full h-[300px] sm:h-[500px] flex-grow">
         {images.map((image, index) => (
           <Slider
-            dragStart={dragStart}
-            dragEnd={dragEnd}
+            touchStart={touchStart}
+            touchEnd={touchEnd}
             key={index}
             imageId={index}
             image={image}
