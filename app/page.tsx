@@ -7,7 +7,7 @@ import image3 from "@/public/image4.jpg";
 const images = [image1, image2, image3];
 export default function Home() {
   return (
-    <div className="max-w-4xl  h-screen  overflow-hidden  mx-auto">
+    <div className="max-w-5xl  h-screen  overflow-hidden  mx-auto">
       <Carousel images={images} />
     </div>
   );
