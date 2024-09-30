@@ -53,9 +53,18 @@ const Carousel = ({ images }: images) => {
   }, [startTouch, endTouch, nextSlide, previousSlide]);
 
   return (
-    <div className="  select-all flex items-center h-full px-2 lg:px-0  gap-2 sm:gap-10 ">
+    <div
+      // Accessible	to	users	with	disabilities
+      aria-label="Carousel"
+      role="region"
+      aria-live="polite" // Announce slide changes.
+      className="  select-all flex items-center h-full px-2 lg:px-0  gap-2 sm:gap-10 ">
       {/* Left Arrow */}
-      <CarouselButton swipFun={previousSlide}>{"<"}</CarouselButton>
+      <CarouselButton
+        swipFun={previousSlide}
+        aria-label="Previous Slide">
+        {"<"}
+      </CarouselButton>
 
       <div className=" relative overflow-hidden    w-full h-[300px] sm:h-[500px] flex-grow">
         {images.map((image, index) => (
@@ -66,11 +75,16 @@ const Carousel = ({ images }: images) => {
             imageId={index}
             image={image}
             currentImage={currentImage}
+            aria-hidden={currentImage !== index}
+            aria-label={`Slide ${index + 1} of ${images.length}`}
           />
         ))}
 
         {/* Bullets */}
-        <div className=" w-full flex items-center justify-center gap-5  absolute   bottom-5 z-30">
+        <div
+          role="group"
+          aria-label="Navigation Dots"
+          className=" w-full flex items-center justify-center gap-5  absolute   bottom-5 z-30">
           {images.map((image, index) => (
             <button
               onClick={() => selectImage(index)}
@@ -78,12 +92,22 @@ const Carousel = ({ images }: images) => {
               className={` w-3 h-3 rounded-full  border  ${
                 index === currentImage ? " bg-blue-400 " : "   bg-gray-300"
               }`}
+              // Accessible	to	users	with	disabilities
+              aria-label={`Select image ${index + 1}`}
+              aria-controls={`slide-${index}`}
+              aria-selected={index === currentImage}
+              role="tab"
+              tabIndex={index === currentImage ? 0 : -1}
             />
           ))}
         </div>
       </div>
       {/* Right Arrows */}
-      <CarouselButton swipFun={nextSlide}>{">"}</CarouselButton>
+      <CarouselButton
+        swipFun={nextSlide}
+        aria-label="Next Slide">
+        {">"}
+      </CarouselButton>
     </div>
   );
 };
