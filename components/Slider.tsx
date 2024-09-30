@@ -19,7 +19,7 @@ const Slider = ({
     <div
       onDragStart={dragStart}
       onDragEnd={dragEnd}
-      className={`   active:cursor-grabbing cursor-grab  select-all   w-full h-full absolute transition-transform ease-in-out duration-1000 ${
+      className={`     active:cursor-grabbing cursor-grab      w-full h-full absolute transition-transform ease-in-out duration-1000 ${
         imageId === currentImage
           ? "translate-x-0 z-0"
           : " -translate-x-[100vw]  -z-10"
@@ -29,7 +29,7 @@ const Slider = ({
         draggable={true}
         src={image}
         alt="image"
-        className=" w-full h-full  select-all   "
+        className=" w-full h-full     "
       />
     </div>
   );

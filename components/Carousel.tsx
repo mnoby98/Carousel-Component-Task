@@ -50,7 +50,7 @@ const Carousel = ({ images }: images) => {
       setStartDrag(0);
       setEndDrag(0);
     }
-  }, [startDrag, endDrag, nextSlide, previousSlide]);
+  }, [startDrag, endDrag]);
 
   return (
     <div className="  select-all flex items-center h-full px-2 lg:px-0  gap-2 sm:gap-10 ">
