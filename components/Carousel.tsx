@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import CarouselButton from "@/components/CarouselButton";
 import Slider from "./Slider";
+import { StaticImageData } from "next/image";
 
 interface images {
-  images: string[];
+  images: StaticImageData[];
 }
 const Carousel = ({ images }: images) => {
   // Current Image

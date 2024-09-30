@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 
 interface ImageType {
   imageId: number;
-  image: string;
+  image: StaticImageData;
   currentImage: number;
 }
 const Slider = ({ currentImage, imageId, image }: ImageType) => {
