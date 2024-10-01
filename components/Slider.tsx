@@ -1,9 +1,8 @@
-import Image, { StaticImageData } from "next/image";
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface ImageType {
   imageId: number;
-  image: StaticImageData;
+  children: ReactNode;
   currentImage: number;
   touchEnd: (e: React.TouchEvent<HTMLDivElement>) => void;
   touchStart: (e: React.TouchEvent<HTMLDivElement>) => void;
@@ -11,7 +10,7 @@ interface ImageType {
 const Slider = ({
   currentImage,
   imageId,
-  image,
+  children,
   touchEnd,
   touchStart,
 }: ImageType) => {
@@ -30,12 +29,13 @@ const Slider = ({
       aria-labelledby={`carousel-slide-${imageId}`} // References the corresponding bullet button.
       tabIndex={isActive ? 0 : -1}
       key={imageId}>
-      <Image
+      {children}
+      {/* <Image
         draggable={true}
         src={image}
         alt="image"
         className=" w-full h-full     "
-      />
+      /> */}
     </div>
   );
 };

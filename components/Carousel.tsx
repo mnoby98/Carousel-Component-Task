@@ -1,23 +1,24 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import CarouselButton from "@/components/CarouselButton";
 import Slider from "./Slider";
-import { StaticImageData } from "next/image";
 
-interface images {
-  images: StaticImageData[];
+interface children {
+  children: ReactNode;
 }
-const Carousel = ({ images }: images) => {
+const Carousel = ({ children }: children) => {
   // Current Image
   const [currentImage, setCurrentImage] = useState(0);
   const [startTouch, setStartTouch] = useState(0);
   const [endTouch, setEndTouch] = useState(0);
 
+  console.log("children", React.Children);
+
   // Select next image
   const nextSlide = useCallback(() => {
-    if (currentImage >= images.length - 1) return;
+    if (currentImage >= React.Children.count(children) - 1) return;
     setCurrentImage((currentImage) => currentImage + 1);
-  }, [currentImage, images.length]);
+  }, [children, currentImage]);
 
   // Select previse Image
   const previousSlide = useCallback(() => {
@@ -67,17 +68,19 @@ const Carousel = ({ images }: images) => {
       </CarouselButton>
 
       <div className=" relative overflow-hidden    w-full h-[300px] sm:h-[500px] flex-grow">
-        {images.map((image, index) => (
+        {React.Children.map(children, (child, index) => (
           <Slider
             touchStart={touchStart}
             touchEnd={touchEnd}
             key={index}
             imageId={index}
-            image={image}
             currentImage={currentImage}
             aria-hidden={currentImage !== index}
-            aria-label={`Slide ${index + 1} of ${images.length}`}
-          />
+            aria-label={`Slide ${index + 1} of ${React.Children.count(
+              children
+            )}`}>
+            {child}
+          </Slider>
         ))}
 
         {/* Bullets */}
@@ -85,14 +88,13 @@ const Carousel = ({ images }: images) => {
           role="group"
           aria-label="Navigation Dots"
           className=" w-full flex items-center justify-center gap-5  absolute   bottom-5 z-30">
-          {images.map((image, index) => (
+          {React.Children.map(children, (_, index) => (
             <button
               onClick={() => selectImage(index)}
               key={index}
-              className={` w-3 h-3 rounded-full  border  ${
-                index === currentImage ? " bg-blue-400 " : "   bg-gray-300"
+              className={`w-3 h-3 rounded-full border ${
+                index === currentImage ? "bg-blue-400" : "bg-gray-300"
               }`}
-              // Accessible	to	users	with	disabilities
               aria-label={`Select image ${index + 1}`}
               aria-controls={`slide-${index}`}
               aria-selected={index === currentImage}
