@@ -1,41 +1,35 @@
 import React, { ReactNode } from "react";
 
 interface ImageType {
-  imageId: number;
+  slideIndex: number;
   children: ReactNode;
-  currentImage: number;
+  currentSlide: number;
   touchEnd: (e: React.TouchEvent<HTMLDivElement>) => void;
   touchStart: (e: React.TouchEvent<HTMLDivElement>) => void;
 }
 const Slider = ({
-  currentImage,
-  imageId,
+  currentSlide,
+  slideIndex,
   children,
   touchEnd,
   touchStart,
 }: ImageType) => {
-  const isActive = imageId === currentImage;
+  const isActive = slideIndex === currentSlide;
   return (
     <div
       onTouchStart={touchStart}
       onTouchEnd={touchEnd}
       className={`     active:cursor-grabbing cursor-grab      w-full h-full absolute transition-transform ease-in-out duration-1000 ${
-        imageId === currentImage
-          ? "translate-x-0 z-0"
-          : " -translate-x-[100vw]  -z-10"
+        slideIndex === currentSlide
+          ? "translate-x-0 z-0" //Selected Slide
+          : " -translate-x-[100vw]  -z-10" //Not Selected Slide
       }`}
       role="tabpanel"
-      aria-hidden={!isActive} // Hides inactive slides from screen readers.
-      aria-labelledby={`carousel-slide-${imageId}`} // References the corresponding bullet button.
+      aria-hidden={!isActive}
+      aria-labelledby={`carousel-slide-${slideIndex}`}
       tabIndex={isActive ? 0 : -1}
-      key={imageId}>
+      key={slideIndex}>
       {children}
-      {/* <Image
-        draggable={true}
-        src={image}
-        alt="image"
-        className=" w-full h-full     "
-      /> */}
     </div>
   );
 };
