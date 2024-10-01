@@ -1,6 +1,6 @@
-# Carousel Component
+# 💫 Carousel Component
 
-### [View Curousel Live ](https://carousel-component-task.vercel.app/)
+### [View Curousel Live 🚀 ](https://carousel-component-task.vercel.app/)
 
 Carousel Component Features
 
@@ -13,9 +13,7 @@ Carousel Component Features
 * Accessibility (ARIA and Role):
   The carousel is accessible to users with disabilities by using ARIA attributes and roles to ensure that assistive technologies can correctly interpret the component.
 
-[]
-
-## Getting Started
+## Getting Started ✨
 
 ```bash
 1- Clone the repository:
